@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  spring_boot_app:
+    build:
+      context: ./project1  # Pointing to the Spring Boot project folder
+      dockerfile: Dockerfile  # Make sure the Dockerfile is named "Dockerfile" in the Spring Boot folder
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    container_name: spring_boot_app
+
+  fastapi_app:
+    build:
+      context: ./prediction  # Pointing to the FastAPI project folder
+      dockerfile: Dockerfile  # Make sure the Dockerfile is named "Dockerfile" in the FastAPI folder
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    container_name: fastapi_app
+    environment:
+      - ENVIRONMENT=production
+
+  flask_app:
+    build:
+      context: ./api  # Pointing to the Flask project folder
+      dockerfile: Dockerfile  # Make sure the Dockerfile is named "Dockerfile" in the Flask folder
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    container_name: flask_app
+    environment:
+      - FLASK_APP=api.py
+
+networks:
+  app-network:
+    driver: bridge
