@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: company-issuer-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/project1
+    username: postgres
+    password: es
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        order_inserts: true
+        order_updates: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+
+server:
+  port: 8082
